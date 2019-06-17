@@ -4,8 +4,6 @@
 #include <hardware_interface/robot_hw.h>
 #include <ros/ros.h>
 
-
-
 class Robot : public hardware_interface::RobotHW {
   private:
     hardware_interface::JointStateInterface jnt_state_interface;
@@ -32,15 +30,14 @@ class Robot : public hardware_interface::RobotHW {
 
     void write() {
       std::cout << "This is a write method" << std::endl;
+      // This will take the stored value into joint_cmd_ and send it to the joint command signal
     }
 
     void read() {
       std::cout << "This is a read method" << std::endl;
-      // This will update jnt_pos_, jnt_vel_ and jnt_eff_ variables (talking with the driver)
+      // This will read the joint's state and store it into jnt_pos_, jnt_vel_ and jnt_eff_ variables
     }
 };
-
-
 
 int main(int argc, char** argv) {
   ros::init(argc, argv, "robot_test");
