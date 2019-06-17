@@ -9,6 +9,7 @@ project(ros_control_tests)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
   hardware_interface
+  controller_manager
 )
 
 ## System dependencies are found with CMake's conventions
@@ -132,6 +133,10 @@ include_directories(
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
 # add_executable(${PROJECT_NAME}_node src/ros_control_tests_node.cpp)
+
+add_executable(robot_test src/Robot.cpp)
+target_link_libraries(robot_test ${catkin_LIBRARIES})
+# add_dependencies( robot_test ${ros_control_tests_EXPORTED_TARGETS})
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
