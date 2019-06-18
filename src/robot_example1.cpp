@@ -48,8 +48,8 @@ int main(int argc, char** argv) {
   while (ros::ok()) {
     robot.read();
     cm.update(ros::Time::now(), ros::Duration(1.0));
+    std::cout << "Controller manager updated!" << std::endl;
     robot.write();
-    std::cout << "This is a controller manager loop (not sure!)" << std::endl;
     sleep(1);
   }
   

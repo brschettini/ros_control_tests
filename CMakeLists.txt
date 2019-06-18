@@ -134,7 +134,7 @@ include_directories(
 ## The recommended prefix ensures that target names across packages don't collide
 # add_executable(${PROJECT_NAME}_node src/ros_control_tests_node.cpp)
 
-add_executable(robot_test src/Robot.cpp)
+add_executable(robot_test src/robot_example1.cpp)
 target_link_libraries(robot_test ${catkin_LIBRARIES})
 # add_dependencies( robot_test ${ros_control_tests_EXPORTED_TARGETS})
 
