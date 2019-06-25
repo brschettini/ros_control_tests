@@ -1,0 +1,11 @@
+<launch>
+    <rosparam file="$(find ros_control_tests)/config/maxon_controller.yaml" command="load"/>
+
+    <!-- <node name="controller_spawner" pkg="controller_manager" type="spawner" 
+            respawn="false" output="screen" ns="maxon" args="maxon_position_controller"/>
+
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"
+        respawn="false" output="screen">
+    <remap from="/joint_states" to="/maxon/joint_states" />
+    </node> -->
+</launch>

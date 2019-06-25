@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(ros_control_tests)
-
+add_compile_options(-std=c++11)
 ## Compile as C++11, supported in ROS Kinetic and newer
 # add_compile_options(-std=c++11)
 
@@ -136,6 +136,9 @@ include_directories(
 
 add_executable(robot_test src/robot_example1.cpp)
 target_link_libraries(robot_test ${catkin_LIBRARIES})
+
+add_executable(robot_test_2 src/robot_example2.cpp)
+target_link_libraries(robot_test_2 ${catkin_LIBRARIES})
 # add_dependencies( robot_test ${ros_control_tests_EXPORTED_TARGETS})
 
 ## Rename C++ executable without prefix

@@ -15,14 +15,14 @@ class Robot : public hardware_interface::RobotHW {
   public:
     Robot() {
         // connect and register the joint state interface
-        hardware_interface::JointStateHandle state_handle("A", &joint_pos_[0], &joint_vel_[0], &joint_eff_[0]);
+        hardware_interface::JointStateHandle state_handle("Maxon_1", &joint_pos_[0], &joint_vel_[0], &joint_eff_[0]);
         jnt_state_interface.registerHandle(state_handle);
 
         registerInterface(&jnt_state_interface);
 
         // connect and register the joint position interface
         
-        hardware_interface::JointHandle pos_handle(jnt_state_interface.getHandle("A"), &joint_cmd_[0]);
+        hardware_interface::JointHandle pos_handle(jnt_state_interface.getHandle("Maxon_1"), &joint_cmd_[0]);
         jnt_pos_interface.registerHandle(pos_handle);
 
         registerInterface(&jnt_pos_interface);

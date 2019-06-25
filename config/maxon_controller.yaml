@@ -1,0 +1,10 @@
+maxon:
+  # Publish all joint states
+  joint_state_controller:
+    type: joint_state_controller/JointStateController
+    publish_rate: 50
+
+  # Position Controller (this case does not need PID params)
+  maxon_position_controller:
+    type: position_controllers/JointPositionController
+    joint: Maxon_1
