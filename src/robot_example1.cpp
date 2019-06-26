@@ -26,17 +26,25 @@ class Robot : public hardware_interface::RobotHW {
         jnt_pos_interface.registerHandle(pos_handle);
 
         registerInterface(&jnt_pos_interface);
+
+        // Instantiate Maxon Driver
+    }
+
+
+    void read() {
+      std::cout << "This is a read method" << std::endl;
+      // This will read the joint's state and store it into jnt_pos_, jnt_vel_ and jnt_eff_ variables
+
+      // Collect pos, vel and eff and store it in attributes
     }
 
     void write() {
       std::cout << "This is a write method" << std::endl;
       // This will take the stored value into joint_cmd_ and send it to the joint command signal
+
+      // Read cmd signal and send to driver as position setpoint
     }
 
-    void read() {
-      std::cout << "This is a read method" << std::endl;
-      // This will read the joint's state and store it into jnt_pos_, jnt_vel_ and jnt_eff_ variables
-    }
 };
 
 int main(int argc, char** argv) {
