@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<robot name="pointer_car" 
+  xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <!-- PROPERTIES -->
+  <xacro:property name="wheel_radius" value="0.1" />
+  <xacro:property name="wheel_thickness" value="0.05" />
+
+  <xacro:property name="car_height" value="0.1" />
+  <xacro:property name="car_length" value="0.4" />
+  <xacro:property name="car_width" value="0.3" />
+
+  <xacro:property name="pointer_heigth" value="0.2" />
+  <xacro:property name="pointer_length" value="0.3" />
+  <xacro:property name="pointer_radius" value="0.05" />
+
+  <xacro:property name="wheel_reduction" value="1" />
+
+  <!-- INCLUDE HELPER SNIPPETS -->
+  <xacro:include filename="$(find ros_control_tests)/urdf/snippets.xacro"/>
+
+  <!-- BASE_LINK -->
+  <link name="base_link">
+    <visual>
+      <geometry>
+        <box size="${car_length} ${car_width} ${car_height}"/>
+      </geometry>
+      <material name="white">
+        <color rgba="1 1 1 1"/>
+      </material>
+    </visual>
+  </link>
+
+  <!-- WHEELS -->
+  <xacro:wheel_macro prefix="left" position="${car_width/2}"/>
+  <xacro:wheel_macro prefix="right" position="-${car_width/2}"/>
+
+  <!-- POINTER -->
+  <link name="pointer_link">
+    <visual>
+      <geometry>
+        <cylinder length="${pointer_length}" radius="${pointer_radius}"/>
+      </geometry>
+      <material name="green">
+        <color rgba="0 1 0 1"/>
+      </material>
+    </visual>
+  </link>
+
+  <link name="pointer_tip_link">
+    <visual>
+      <geometry>
+        <cylinder length="${0.1*pointer_length}" radius="${pointer_radius}"/>
+      </geometry>
+      <material name="blue">
+        <color rgba="0 0 1 1"/>
+      </material>
+    </visual>
+  </link>
+
+  <joint name="pointer_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="pointer_link"/>
+    <origin xyz="0 0 ${pointer_heigth}" rpy="0 ${pi/2} 0"/>
+    <axis xyz="1 0 0"/>
+  </joint>
+
+  <joint name="pointer_tip_joint" type="fixed">
+    <parent link="pointer_link"/>
+    <child link="pointer_tip_link"/>
+    <origin xyz="0 0 ${0.55*pointer_length}"/>
+    <!-- <axis xyz="0 0 1"/> -->
+  </joint>
+
+</robot>

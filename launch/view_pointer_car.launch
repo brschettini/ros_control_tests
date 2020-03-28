@@ -1,0 +1,16 @@
+<launch>
+
+  <arg name="use_gui" default="false"/>
+
+  <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find ros_control_tests)/urdf/pointer_car.xacro'" />
+
+  <!-- Publish robot model for ROS -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="true"/>
+
+  <!-- Load rviz and joint_state_publisher GUI -->
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find ros_control_tests)/rviz/pointer_car.rviz"/>
+
+  <param name="use_gui" value="$(arg use_gui)"/>
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher"/>
+
+</launch>
