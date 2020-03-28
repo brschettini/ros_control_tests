@@ -20,11 +20,11 @@
   <depend>controller_interface</depend>
   <depend>controller_manager</depend>
   <depend>default_robot_hw_base</depend>
+  <depend>combined_robot_hw</depend>
 
 
-  <!-- The export tag contains other, unspecified, tags -->
+  <!-- Other tools can request additional information be placed here -->
   <export>
-    <!-- Other tools can request additional information be placed here -->
-
+    <hardware_interface plugin="${prefix}/robot_hw_plugins.xml"/>
   </export>
 </package>

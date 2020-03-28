@@ -6,6 +6,7 @@ set(CATKIN_DEPS
   hardware_interface
   controller_manager
   default_robot_hw_base
+  combined_robot_hw
 )
 
 ## Find catkin macros and libraries

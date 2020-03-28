@@ -2,9 +2,11 @@
  * Copyright (c) 2020, SENAI CIMATEC
  */
 
+#include <ros/ros.h>
+
+#include <pluginlib/class_list_macros.hpp>
 #include "ros_control_tests/dummy_default_robot_hw.hpp"
 
-#include <ros/ros.h>
 
 namespace ros_control_tests {
 
@@ -60,3 +62,5 @@ void DummyDefaultRobotHW::writeHW(const ros::Time &time, const ros::Duration &pe
 }
 
 }  // namespace ros_control_tests
+
+PLUGINLIB_EXPORT_CLASS(ros_control_tests::DummyDefaultRobotHW, hardware_interface::RobotHW)

@@ -1,0 +1,7 @@
+<library path="lib/libdummy_default_robot_hw">
+  <class name="ros_control_tests/DummyDefaultRobotHW" type="ros_control_tests::DummyDefaultRobotHW" base_class_type="hardware_interface::RobotHW">
+    <description>
+      Dummy Default RobotHW
+    </description>
+  </class>
+</library>
