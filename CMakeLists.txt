@@ -46,6 +46,12 @@ include_directories(
 add_library(dummy_default_robot_hw src/dummy_default_robot_hw.cpp)
 target_link_libraries(dummy_default_robot_hw ${catkin_LIBRARIES})
 
+add_executable(dummy_control_loop src/dummy_control_loop.cpp)
+target_link_libraries(dummy_control_loop ${catkin_LIBRARIES} dummy_default_robot_hw)
+
+add_executable(combined_control_loop src/combined_control_loop.cpp)
+target_link_libraries(combined_control_loop ${catkin_LIBRARIES})
+
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
@@ -62,7 +68,7 @@ target_link_libraries(robot_test_2 ${catkin_LIBRARIES})
 #############
 
 # Mark executables and/or libraries for installation
-install(TARGETS dummy_default_robot_hw robot_test robot_test_2
+install(TARGETS dummy_default_robot_hw dummy_control_loop combined_control_loop robot_test robot_test_2
   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
