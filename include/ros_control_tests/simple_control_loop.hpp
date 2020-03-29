@@ -8,11 +8,15 @@
 #include <controller_manager/controller_manager.h>
 #include <hardware_interface/robot_hw.h>
 #include <ros/ros.h>
+#include <thread>
 
 namespace ros_control_tests {
 
 void simple_control_loop(hardware_interface::RobotHW* robot_hw) {
   controller_manager::ControllerManager cm(robot_hw);
+
+  ros::NodeHandle nh, private_nh("~");
+  robot_hw->init(nh, private_nh);
 
   // AsyncSpinner for ROS interface
   ros::AsyncSpinner spinner(1);
@@ -24,6 +28,7 @@ void simple_control_loop(hardware_interface::RobotHW* robot_hw) {
   while (ros::ok()) {
     const ros::Time time = ros::Time::now();
     const ros::Duration period = time - prev_time;
+    prev_time = time;
 
     robot_hw->read(time, period);
     cm.update(time, period);

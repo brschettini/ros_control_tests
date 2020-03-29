@@ -1,0 +1,7 @@
+robot_hardware:
+  - dummy_robot_hw
+  # - dynamixel_robot_hw
+dummy_robot_hw:
+  type: ros_control_tests/DummyDefaultRobotHW
+# dynamixel_robot_hw:
+#   type: bir_dynamixel_robot_hw/DynamixelRobotHW

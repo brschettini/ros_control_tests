@@ -2,21 +2,24 @@
  * Copyright (c) 2020, SENAI CIMATEC
  */
 
+#include "ros_control_tests/dummy_default_robot_hw.hpp"
+
 #include <ros/ros.h>
 
 #include <pluginlib/class_list_macros.hpp>
-#include "ros_control_tests/dummy_default_robot_hw.hpp"
-
 
 namespace ros_control_tests {
 
 bool DummyDefaultRobotHW::initHW(const ros::NodeHandle &root_nh, const ros::NodeHandle &robot_hw_nh) {
-  ROS_DEBUG("DummyDefaultRobotHW INIT");
+  ROS_INFO("DummyDefaultRobotHW INIT");
   return true;
 }
 
 void DummyDefaultRobotHW::readHW(const ros::Time &time, const ros::Duration &period) {
   ROS_DEBUG("DummyDefaultRobotHW READ");
+  for (const auto &actuator : getActuators()) {
+    actuator->setState(actuator->getPositionCommand(), actuator->getVelocityCommand(), actuator->getEffortCommand());
+  }
 }
 
 void DummyDefaultRobotHW::writeHW(const ros::Time &time, const ros::Duration &period) {
@@ -24,7 +27,7 @@ void DummyDefaultRobotHW::writeHW(const ros::Time &time, const ros::Duration &pe
 
   static double new_position, new_velocity, new_effort;
 
-  for (const auto& act_data : this->getActuators()) {
+  for (const auto &act_data : this->getActuators()) {
     if (act_data->isClaimed()) {  // to be deprecated
       // default values
       new_position = act_data->getPosition();
@@ -39,24 +42,28 @@ void DummyDefaultRobotHW::writeHW(const ros::Time &time, const ros::Duration &pe
           new_effort = (new_velocity - act_data->getVelocity()) / period.toSec();    // dvel/dt
           break;
         case default_robot_hw_base::VELOCITY:
-          new_velocity = act_data->getVelocityCommand();                                // vel_cmd
-          new_position = (new_velocity + act_data->getVelocity()) / 2 * period.toSec();  // vel*dt
-          new_effort = (new_velocity - act_data->getVelocity()) / period.toSec();       // dvel/dt
+          new_velocity = act_data->getVelocityCommand();  // vel_cmd
+          new_position =
+              act_data->getPosition() + (new_velocity + act_data->getVelocity()) / 2. * period.toSec();  // vel*dt
+          new_effort = (new_velocity - act_data->getVelocity()) / period.toSec();                        // dvel/dt
           break;
         case default_robot_hw_base::EFFORT:
-          new_effort = act_data->getEffortCommand();                                     // eff_cmd
-          new_velocity = (new_effort + act_data->getEffort()) / 2 * period.toSec();      // eff*dt
-          new_position = (new_velocity + act_data->getVelocity()) / 2 * period.toSec();  // vel*dt
+          new_effort = act_data->getEffortCommand();  // eff_cmd
+          new_velocity = act_data->getVelocity() + (new_effort + act_data->getEffort()) / 2 * period.toSec();  // eff*dt
+          new_position =
+              act_data->getPosition() + (new_velocity + act_data->getVelocity()) / 2 * period.toSec();  // vel*dt
+          break;
+        case default_robot_hw_base::JOINT_STATE:
           break;
         default:
-          ROS_WARN("UNSUPPORTED HARDWARE INTERFACE");
+          ROS_WARN_THROTTLE(1, "UNSUPPORTED HARDWARE INTERFACE");
           break;
       }
 
       // Update the robot state
-      act_data->setPosition(new_position);
-      act_data->setVelocity(new_velocity);
-      act_data->setEffort(new_effort);
+      act_data->setPositionCommand(new_position);
+      act_data->setVelocityCommand(new_velocity);
+      act_data->setEffortCommand(new_effort);
     }
   }
 }

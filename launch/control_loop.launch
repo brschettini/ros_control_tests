@@ -1,0 +1,17 @@
+<launch>
+  <arg name="dummy_only" default="false"/>
+
+  <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find ros_control_tests)/urdf/pointer_car.xacro'" />
+
+
+  <!-- <group if="$(arg dummy_only)"> -->
+    <node name="dummy_control_loop" pkg="ros_control_tests" type="dummy_control_loop" output="screen"/>
+  <!-- </group> -->
+
+  <!-- <group unless="$(arg dummy_only)">
+    <node name="combined_control_loop" pkg="ros_control_tests" type="combined_control_loop" output="screen">
+      <rosparam command="load" file="$(find ros_control_tests)/config/robot_hw.yaml"/>
+    </node>
+  </group> -->
+
+</launch>

@@ -13,6 +13,7 @@ namespace ros_control_tests {
 
 class DummyDefaultRobotHW : public default_robot_hw_base::DefaultRobotHWBase {
  public:
+  DummyDefaultRobotHW() {}
   virtual bool initHW(const ros::NodeHandle &root_nh, const ros::NodeHandle &robot_hw_nh);
   virtual void readHW(const ros::Time &time, const ros::Duration &period);
   virtual void writeHW(const ros::Time &time, const ros::Duration &period);

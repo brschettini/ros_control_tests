@@ -1,0 +1,53 @@
+# Joint-state Controllers
+joint_state_controller:
+  type: "joint_state_controller/JointStateController"
+  publish_rate: 50
+
+left_wheel_velocity_controller:
+  type: "velocity_controllers/JointVelocityController"
+  joint: "left_wheel_joint"
+
+right_wheel_velocity_controller:
+  type: "velocity_controllers/JointVelocityController"
+  joint: "right_wheel_joint"
+
+# Position Controllers
+pointer_position_controller:
+  type: position_controllers/JointPositionController
+  joint: "pointer_joint"
+
+# Velocity Controllers
+pointer_velocity_controller:
+  type: velocity_controllers/JointVelocityController
+  joint: "pointer_joint"
+
+pointer_position_controller_vel_iface:
+  type: velocity_controllers/JointPositionController
+  joint: "pointer_joint"
+  pid: {p: 1., i: 0., d: 0., i_clamp: 0.}
+
+# Effort Controllers
+pointer_effort_controller:
+  type: effort_controllers/JointEffortController
+  joint: "pointer_joint"
+
+pointer_velocity_controller_eff_iface:
+  type: effort_controllers/JointVelocityController
+  joint: "pointer_joint"
+  pid: {p: 1., i: 0., d: 0., i_clamp: 0.}
+
+pointer_position_controller_eff_iface:
+  type: effort_controllers/JointPositionController
+  joint: "pointer_joint"
+  pid: {p: 1., i: 1., d: 0., i_clamp: 0.}
+
+
+# Joint Trajectory Controllers
+
+# Differential-drive controllers
+diff_drive_controller:
+  type: "diff_drive_controller/DiffDriveController"
+  left_wheel: 'left_wheel_joint'
+  right_wheel: 'right_wheel_joint'
+  pose_covariance_diagonal: [0.001, 0.001, 1000000.0, 1000000.0, 1000000.0, 1000.0]
+  twist_covariance_diagonal: [0.001, 0.001, 1000000.0, 1000000.0, 1000000.0, 1000.0]

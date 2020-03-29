@@ -1,0 +1,13 @@
+<launch>
+
+
+  <include file="$(find ros_control_tests)/launch/view_robot.launch">
+  </include>
+
+  <include file="$(find ros_control_tests)/launch/load_controllers.launch"/>
+  
+  <include file="$(find ros_control_tests)/launch/control_loop.launch">
+    <param name="dummy_only" value="true"/>
+  </include>
+
+</launch>

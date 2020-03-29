@@ -101,6 +101,8 @@ Visualization Manager:
           Value: true
         left_wheel_link:
           Value: true
+        odom:
+          Value: true
         pointer_link:
           Value: true
         pointer_tip_link:
@@ -113,21 +115,22 @@ Visualization Manager:
       Show Axes: true
       Show Names: false
       Tree:
-        base_link:
-          left_wheel_link:
-            {}
-          pointer_link:
-            pointer_tip_link:
+        odom:
+          base_link:
+            left_wheel_link:
               {}
-          right_wheel_link:
-            {}
+            pointer_link:
+              pointer_tip_link:
+                {}
+            right_wheel_link:
+              {}
       Update Interval: 0
       Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
     Default Light: true
-    Fixed Frame: base_link
+    Fixed Frame: odom
     Frame Rate: 30
   Name: root
   Tools:
